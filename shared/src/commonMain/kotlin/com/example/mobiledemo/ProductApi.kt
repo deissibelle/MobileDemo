@@ -12,7 +12,7 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
-class ProductApi {
+class ProductsApi {
     private val httpClient = HttpClient {
         install(ContentNegotiation){
             json(Json {
@@ -31,7 +31,9 @@ class ProductApi {
             try {
                 emit (
                     RequestState.Success(
-                        data = httpClient.get(urlString = "${BASE_URL}products?limit$limit").body()
+                        data = Products(
+                            items = httpClient.get(urlString = "${BASE_URL}products?limit=$limit").body()
+                        )
                     )
                 )
             }catch (e:Exception){
