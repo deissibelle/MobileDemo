@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.example.mobiledemo.android"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.example.mobiledemo.android"
         minSdk = 24
@@ -16,6 +15,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packaging {
         resources {
@@ -28,8 +30,10 @@ android {
         }
     }
     compileOptions {
+
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -37,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose)
     implementation(projects.shared)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
